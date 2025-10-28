@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const agentId = "v2_agt_3CYryUYK";
   const auth = {
     type: 'key',
-    clientKey: 'YOUR_CLIENT_KEY_FROM_STUDIO_HERE'  // Not your API key!
+    clientKey: 'YXV0aDB8NjhmZjNmMDEyODZjNmUzNjgzMTdlZDg0OnFFVjNoSkk0NUt1SEJ2VVlFX1lWdg=='  // Not your API key!
   };
   const encodedKey = btoa(clientKey + ":"); // Important! Add colon for Basic Auth
 
