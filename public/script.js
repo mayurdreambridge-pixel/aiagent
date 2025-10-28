@@ -13,25 +13,22 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("did").appendChild(videoElement);
 
   const agentId = "v2_agt_3CYryUYK";
-  const clientKey = "ZGhlZXJhai5kaGF3YW5AZHJlYW1icmlkZ2UuZ2xvYmFs:ncniYdhByfg8l-gMVuoGC";
+  const auth = {
+    type: 'key',
+    clientKey: 'YOUR_CLIENT_KEY_FROM_STUDIO_HERE'  // Not your API key!
+  };
   const encodedKey = btoa(clientKey + ":"); // Important! Add colon for Basic Auth
 
   const auth = { type: "key", clientKey };
 
   const callbacks = {
-    onSrcObjectReady: (stream) => (videoElement.srcObject = stream),
-    onConnectionStateChange: (state) => {
-      console.log("🌐 Connection:", state);
-      if (state === "connected") output.textContent = "Agent connected ✅";
+    onError(error, errorData) {
+      console.error("Agent Error:", error, errorData);
     },
-    onNewMessage: (msgs) => {
-      const assistant = msgs.find((m) => m.role === "assistant");
-      if (assistant) output.textContent = assistant.content;
-    },
-    onError: (err) => {
-      console.error("❌", err);
-      output.textContent = "Error: " + err;
-    },
+    onSrcObjectReady(srcObject) {
+      const videoElement = document.getElementById('agent-video');
+      videoElement.srcObject = srcObject;
+    }
   };
 
   const streamOptions = { compatibilityMode: "auto", streamWarmup: true };
@@ -43,17 +40,22 @@ document.addEventListener("DOMContentLoaded", () => {
       output.textContent = "Connecting to agent...";
 
       // ✅ Initialize D-ID Agent Manager
-      const agentManager = await sdk.createAgentManager(agentId, { baseUrl: PROXY_URL,
+      const agentManager = await sdk.createAgentManager(agentId, {
         auth,
         callbacks,
-        streamOptions,
+        streamOptions: {
+          compatibilityMode: 'auto',
+          streamWarmup: true
+        }
       });
-
       // console.log("AgentManager created ✅", agentManager);
       // output.textContent = "Connected to agent ✅";
 
       // Optionally send a chat
       // await agentManager.chat("Hello!");
+
+      await agentManager.connect();
+      await agentManager.chat('Hello!');
 
     } catch (err) {
       console.error("❌ Fetch error:", err);
