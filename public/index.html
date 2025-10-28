@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>D-ID Agent Split Layout</title>
+    <meta name="color-scheme" content="light dark" />
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background: #000;
+      }
+
+      .container {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      #did {
+        flex: 1;
+        background: #000;
+      }
+
+      .right-panel {
+        flex: 1;
+        background: #007bff;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .action-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        color: #007bff;
+        background: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .action-btn:hover {
+        background: #e6e6e6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="did"></div>
+
+      <div class="right-panel">
+        <p>Welcome to the UI Panel</p>
+        <button class="action-btn" id="startBtn">Start Interaction</button>
+        <p id="output"></p>
+      </div>
+    </div>
+
+    <!-- D-ID Agent UI Embed -->
+    <script
+      type="module"
+      src="https://agent.d-id.com/v2/index.js"
+      data-mode="full"
+      data-client-key="YXV0aDB8NjhmZjNmMDEyODZjNmUzNjgzMTdlZDg0OnFFVjNoSkk0NUt1SEJ2VVlFX1lWdg=="
+      data-agent-id="v2_agt_3CYryUYK"
+      data-name="did-agent"
+      data-monitor="true"
+      data-target-id="did">
+    </script>
+
+    <!-- Your custom logic -->
+    <script type="module" src="/script.js""></script>
+  </body>
+</html>
